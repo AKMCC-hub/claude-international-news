@@ -1,6 +1,7 @@
 import anthropic
 import json
 import uuid
+import os
 from datetime import datetime
 
 def test_new_api_search():
@@ -13,8 +14,12 @@ def test_new_api_search():
     print(f"请在日志中搜索此ID: {trace_id}\n")
 
     # 使用自定义API端点的Anthropic客户端，修复base_url配置
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise ValueError("请设置环境变量 ANTHROPIC_API_KEY")
+
     client = anthropic.Anthropic(
-        api_key="***REMOVED_API_KEY***",
+        api_key=api_key,
         base_url="https://spai.aicoding.sh",  # 不包含/v1，SDK会自动添加
         default_headers={
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
