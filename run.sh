@@ -35,6 +35,7 @@ show_help() {
     echo "  6, --list-models     查看可用模型"
     echo "  7, --test-api        测试 API 端点"
     echo "  8, --test-env        测试环境"
+    echo "  9, --test-sdk        测试 Anthropic SDK（检测 Cloudflare 拦截）"
     echo "  -h, --help           显示此帮助信息"
     echo ""
     echo "配置选项："
@@ -99,6 +100,11 @@ run_function() {
             echo ""
             python test_env.py
             ;;
+        9|--test-sdk)
+            echo ""
+            echo "测试 Anthropic SDK（检测 Cloudflare 拦截）..."
+            python test_anthropic_sdk.py
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -160,9 +166,10 @@ echo "5. 快速获取新闻（两种格式对比）"
 echo "6. 查看可用模型"
 echo "7. 测试 API 端点"
 echo "8. 测试环境"
+echo "9. 测试 Anthropic SDK（检测 Cloudflare 拦截）"
 echo "0. 退出"
 echo ""
-read -p "请输入选项 [0-8]: " choice
+read -p "请输入选项 [0-9]: " choice
 
 case $choice in
     0)
